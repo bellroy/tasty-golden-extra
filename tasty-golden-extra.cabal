@@ -63,11 +63,10 @@ library
   ghc-options:     -Wunused-packages
   hs-source-dirs:  src
 
-  -- cabal-fmt: expand src/ -Test.Tasty.Golden.Extra.Internal
+  -- cabal-fmt: expand src/
   exposed-modules:
     Test.Tasty.Golden.Extra.GoldenVsShow
     Test.Tasty.Golden.Extra.GoldenVsString
     Test.Tasty.Golden.Extra.GoldenVsToJSON
     Test.Tasty.Golden.Extra.GoldenVsToYAML
-
-  other-modules:   Test.Tasty.Golden.Extra.Internal
+    Test.Tasty.Golden.Extra.Internal

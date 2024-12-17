@@ -30,8 +30,8 @@ import Text.Show.Pretty (ppShow)
 --  import System.FilePath ((\</\>))
 --  import Test.Tasty.Golden.Extra.GoldenVsShow (GoldenVsShow (..))
 --
---  tasty_FromJSON_ToJSON :: GoldenVsShow
---  tasty_FromJSON_ToJSON =
+--  tasty_GoldenVsShow :: GoldenVsShow
+--  tasty_GoldenVsShow =
 --    GoldenVsShow (goldenFilesPath \</\> "Person.golden.txt") $
 --      Aeson.eitherDecodeFileStrict @Person (goldenFilesPath \</\> "Person.json")
 -- @
@@ -50,7 +50,7 @@ instance Discover.Tasty GoldenVsShow where
 --  import MySchemasWithShowAndShowInstances.Person (Person)
 --  import Data.Aeson qualified as Aeson
 --  import System.FilePath ((\</\>))
---  import Test.Tasty.Golden.Extra.GoldenVsShow (GoldenVsShow (..))
+--  import Test.Tasty.Golden.Extra.GoldenVsShow (goldenVsShow)
 --
 --  test_Show :: TestTree
 --  test_Show = do
@@ -58,7 +58,7 @@ instance Discover.Tasty GoldenVsShow where
 --    goldenVsShow
 --      "Test Show instance for Person"
 --      (goldenFilesPath \</\> "Person.golden.txt")
---      (Aeson.decodeFileStrict' inputFile)
+--      (Aeson.decodeFileStrict' @Person inputFile)
 -- @
 goldenVsShow ::
   (Show a) =>
