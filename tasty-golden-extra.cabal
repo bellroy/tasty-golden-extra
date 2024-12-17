@@ -22,7 +22,7 @@ tested-with:
   GHC ==8.10.7 || ==9.0.2 || ==9.2.4 || ==9.4.5 || ==9.6.6 || ==9.8.2
 
 extra-source-files:
-  CHANGLOG.md
+  CHANGELOG.md
   README.md
 
 source-repository head
