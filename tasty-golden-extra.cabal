@@ -35,13 +35,13 @@ common deps
     , aeson-diff          ^>=1.1.0.9
     , aeson-pretty        ^>=0.8.9
     , base                >=4.14      && <4.20
-    , bytestring          >=0.10.12
+    , bytestring          >=0.10.12 && <=0.12.2
     , pretty-show         ^>=1.10
     , pretty-simple       ^>=4.1
     , tasty               ^>=1.5
     , tasty-discover      ^>=5.0.0
     , tasty-golden        ^>=2.3.5
-    , text                >=2.1
+    , text                >=1.2.4 && <=2.1.2
     , yaml                ^>=0.11.11
 
 common opts
