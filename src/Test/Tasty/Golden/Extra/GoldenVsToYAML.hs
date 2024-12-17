@@ -1,8 +1,7 @@
 {-# LANGUAGE AllowAmbiguousTypes #-}
-{-# LANGUAGE ExplicitForAll #-}
+{-# LANGUAGE ExistentialQuantification #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE QuasiQuotes #-}
-{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE RankNTypes #-}
 
 -- |
 --
@@ -16,20 +15,18 @@
 -- that you want to convert to YAML using the @Data.Yaml@ package.
 module Test.Tasty.Golden.Extra.GoldenVsToYAML
   ( goldenVsToYaml,
-    goldenVsToYamlFile,
     GoldenVsToYAML (..),
   )
 where
 
 import Data.Aeson
-import Data.Aeson qualified as Aeson
-import Data.ByteString qualified as BL
-import Data.String.Interpolate (i)
-import Data.Yaml qualified as Yaml
+import qualified Data.Aeson as Aeson
+import qualified Data.ByteString as BL
+import qualified Data.Yaml as Yaml
 import Test.Tasty
-import Test.Tasty.Discover qualified as Discover
+import qualified Test.Tasty.Discover as Discover
 import Test.Tasty.Golden.Advanced (goldenTest)
-import Test.Tasty.Golden.Extra.Internal (assertJsonEqual)
+import Test.Tasty.Golden.Extra.Internal (checkJsonDifference, maybeDifference)
 
 -- | Tasty-discoverable type for creating golden tests for @ToJSON@ instances,
 -- that you want to convert to YAML using the @Data.Yaml@ package.
@@ -38,12 +35,12 @@ import Test.Tasty.Golden.Extra.Internal (assertJsonEqual)
 --
 -- @
 --  import MySchemasWithToJSONInstances.Person (Person)
---  import Data.Aeson qualified as Aeson
+--  import qualified Data.Aeson as Aeson
 --  import System.FilePath ((\</\>))
 --  import Test.Tasty.Golden.Extra.GoldenVsToYAML (GoldenVsToYAML (..))
 --
---  tasty_FromJSON_ToJSON :: GoldenVsToYAML
---  tasty_FromJSON_ToJSON =
+--  tasty_FromJSON_ToYAML :: GoldenVsToYAML
+--  tasty_FromJSON_ToYAML =
 --    GoldenVsToYAML (goldenFilesPath \</\> "Person.golden.yaml") $
 --      Aeson.eitherDecodeFileStrict @Person (goldenFilesPath \</\> "Person.json")
 -- @
@@ -53,43 +50,6 @@ instance Discover.Tasty GoldenVsToYAML where
   tasty info (GoldenVsToYAML ref act) = pure $ goldenVsToYaml (Discover.nameOf info) ref act
 
 -- | Helper function for creating a @TestTree@ for @ToJSON@-to-YAML golden tests.
--- Use when you want to test code that produces a YAML file as a side effect.
---
--- Example use:
---
--- @
---  import MySchemasWithToJSONInstances.Person (Person, gen)
---  import Data.Aeson qualified as Aeson
---  import System.FilePath ((\</\>))
---  import Test.Tasty.Golden.Extra.GoldenVsToYAML (GoldenVsToYAML (..))
---
---  test_ToYAML :: TestTree
---  test_ToYAML = do
---    person <- gen
---    let outputFile = goldenFilesPath \</\> "Person.yaml"
---    goldenVsToYamlFile
---      "Test YAML serialization for Person"
---      (goldenFilesPath \</\> "Person.golden.yaml")
---      outputFile
---      (Aeson.encodeFile outputFile person)
--- @
-goldenVsToYamlFile ::
-  -- | test name
-  TestName ->
-  -- | path to the «golden» file (the file that contains correct output)
-  FilePath ->
-  -- | path to the output file
-  FilePath ->
-  -- | action that creates the output file
-  IO () ->
-  TestTree
-goldenVsToYamlFile name ref new act =
-  goldenVsToYaml @Aeson.Value name ref $ do
-    act
-    eJson <- Yaml.decodeFileEither new
-    orFailTest new eJson
-
--- | Helper function for creating a @TestTree@ for @ToJSON@-to-YAML golden tests.
 -- Use when you want to test @ToJSON@ instances against a golden example of YAML
 -- on disk.
 --
@@ -97,9 +57,9 @@ goldenVsToYamlFile name ref new act =
 --
 -- @
 --  import MySchemasWithToJSONInstances.Person (Person)
---  import Data.Aeson qualified as Aeson
+--  import qualified Data.Aeson as Aeson
 --  import System.FilePath ((\</\>))
---  import Test.Tasty.Golden.Extra.GoldenVsToYAML (GoldenVsToYAML (..))
+--  import Test.Tasty.Golden.Extra.GoldenVsToYAML (goldenVsToYAML)
 --
 --  test_ToYAML :: TestTree
 --  test_ToYAML = do
@@ -107,7 +67,7 @@ goldenVsToYamlFile name ref new act =
 --    goldenVsToYAML
 --      "Test YAML serialization for Person"
 --      (goldenFilesPath \</\> "Person.golden.yaml")
---      (Aeson.decodeFileStrict' inputFile)
+--      (Aeson.decodeFileStrict' @Person inputFile)
 -- @
 goldenVsToYaml ::
   forall a.
@@ -125,14 +85,14 @@ goldenVsToYaml name fp act =
     name
     (Yaml.decodeFileEither fp >>= orFailTest fp)
     (Aeson.toJSON <$> act)
-    assertJsonEqual
+    (\a b -> pure . maybeDifference $ checkJsonDifference a b)
     (BL.writeFile fp . Yaml.encode)
 
 orFailTest :: FilePath -> Either Yaml.ParseException a -> IO a
 orFailTest fp =
   either
     ( fail
-        . ([i|Failed to decode file #{fp}|] <>)
+        . (\t -> mconcat ["Failed to decode file ", fp, "\n", t])
         . Yaml.prettyPrintParseException
     )
     pure

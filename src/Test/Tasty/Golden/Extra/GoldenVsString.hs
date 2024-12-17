@@ -8,10 +8,14 @@
 --
 -- These helpers are useful for creating golden tests for functions that
 -- produce textual output.
-module Test.Tasty.Golden.Extra.GoldenVsString (GoldenVsString (..)) where
+module Test.Tasty.Golden.Extra.GoldenVsString
+  ( GoldenVsString (..),
+    goldenVsString,
+  )
+where
 
 import Data.ByteString.Lazy (ByteString)
-import Test.Tasty.Discover qualified as Discover
+import qualified Test.Tasty.Discover as Discover
 import Test.Tasty.Golden
 
 -- | Tasty-discoverable type for creating golden tests for functions that produce
@@ -20,9 +24,8 @@ import Test.Tasty.Golden
 -- Example use:
 --
 -- @
---  import MySchemasWithShowAndToJSONInstances.Person (Person, convertToCSVText)
---  import Data.Aeson qualified as Aeson
---  import Data.Aeson.Encode.Pretty qualified as AesonPretty
+--  import MySchemasWithShowAndToJSONInstances.Person (convertToCSVText)
+--  import qualified Data.Aeson as Aeson
 --  import System.FilePath ((\</\>))
 --  import Test.Tasty.Golden.Extra.GoldenVsString (GoldenVsString (..))
 --

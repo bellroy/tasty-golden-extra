@@ -5,6 +5,4 @@ A library providing additional golden test helpers for the
 the output of functions that return textual output and instances of @Show@,
 @ToJSON@ or @ToYAML@.
 
-To find out what's new, read the **[change log][]**.
-
-[change log]: https://github.com/UnkindPartition/tasty/blob/master/core/CHANGELOG.md
+To find out what's new, read the [change log](https://github.com/bellroy/tasty-golden-extra/blob/master/CHANGELOG.md).
