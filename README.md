@@ -7,4 +7,4 @@ the output of functions that return textual output and instances of @Show@,
 
 To find out what's new, read the **[change log][]**.
 
-[change log]: https://github.com/UnkindPartition/tasty/blob/master/core/CHANGELOG.md
+[change log]: https://github.com/bellroy/tasty-golden-extra/blob/master/CHANGELOG.md
