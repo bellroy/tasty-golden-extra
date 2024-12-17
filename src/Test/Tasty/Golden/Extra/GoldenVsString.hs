@@ -15,7 +15,7 @@ module Test.Tasty.Golden.Extra.GoldenVsString
 where
 
 import Data.ByteString.Lazy (ByteString)
-import Test.Tasty.Discover qualified as Discover
+import qualified Test.Tasty.Discover as Discover
 import Test.Tasty.Golden
 
 -- | Tasty-discoverable type for creating golden tests for functions that produce
@@ -25,7 +25,7 @@ import Test.Tasty.Golden
 --
 -- @
 --  import MySchemasWithShowAndToJSONInstances.Person (convertToCSVText)
---  import Data.Aeson qualified as Aeson
+--  import qualified Data.Aeson as Aeson
 --  import System.FilePath ((\</\>))
 --  import Test.Tasty.Golden.Extra.GoldenVsString (GoldenVsString (..))
 --

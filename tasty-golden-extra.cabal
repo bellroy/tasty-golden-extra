@@ -45,7 +45,7 @@ common deps
     , yaml                ^>=0.11.11
 
 common opts
-  default-language:   GHC2021
+  default-language: Haskell2010
   default-extensions:
     DuplicateRecordFields
     OverloadedStrings

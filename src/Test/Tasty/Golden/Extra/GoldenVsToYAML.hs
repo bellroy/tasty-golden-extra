@@ -1,8 +1,7 @@
 {-# LANGUAGE AllowAmbiguousTypes #-}
-{-# LANGUAGE ExplicitForAll #-}
+{-# LANGUAGE ExistentialQuantification #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE QuasiQuotes #-}
-{-# LANGUAGE TypeApplications #-}
+{-# LANGUAGE RankNTypes #-}
 
 -- |
 --
@@ -21,11 +20,11 @@ module Test.Tasty.Golden.Extra.GoldenVsToYAML
 where
 
 import Data.Aeson
-import Data.Aeson qualified as Aeson
-import Data.ByteString qualified as BL
-import Data.Yaml qualified as Yaml
+import qualified Data.Aeson as Aeson
+import qualified Data.ByteString as BL
+import qualified Data.Yaml as Yaml
 import Test.Tasty
-import Test.Tasty.Discover qualified as Discover
+import qualified Test.Tasty.Discover as Discover
 import Test.Tasty.Golden.Advanced (goldenTest)
 import Test.Tasty.Golden.Extra.Internal (checkJsonDifference, maybeDifference)
 
@@ -36,7 +35,7 @@ import Test.Tasty.Golden.Extra.Internal (checkJsonDifference, maybeDifference)
 --
 -- @
 --  import MySchemasWithToJSONInstances.Person (Person)
---  import Data.Aeson qualified as Aeson
+--  import qualified Data.Aeson as Aeson
 --  import System.FilePath ((\</\>))
 --  import Test.Tasty.Golden.Extra.GoldenVsToYAML (GoldenVsToYAML (..))
 --
@@ -58,7 +57,7 @@ instance Discover.Tasty GoldenVsToYAML where
 --
 -- @
 --  import MySchemasWithToJSONInstances.Person (Person)
---  import Data.Aeson qualified as Aeson
+--  import qualified Data.Aeson as Aeson
 --  import System.FilePath ((\</\>))
 --  import Test.Tasty.Golden.Extra.GoldenVsToYAML (goldenVsToYAML)
 --

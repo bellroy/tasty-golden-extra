@@ -1,3 +1,5 @@
+{-# LANGUAGE ExistentialQuantification #-}
+
 -- |
 --
 -- Module      : Test.Tasty.Golden.Extra.GoldenVsShow
@@ -13,10 +15,10 @@ module Test.Tasty.Golden.Extra.GoldenVsShow
   )
 where
 
-import Data.Text.Lazy qualified as Text
+import qualified Data.Text.Lazy as Text
 import Data.Text.Lazy.Encoding (encodeUtf8)
 import Test.Tasty (TestName, TestTree)
-import Test.Tasty.Discover qualified as Discover
+import qualified Test.Tasty.Discover as Discover
 import Test.Tasty.Golden
 import Text.Show.Pretty (ppShow)
 
@@ -26,7 +28,7 @@ import Text.Show.Pretty (ppShow)
 --
 -- @
 --  import MySchemasWithShowAndToJSONInstances.Person (Person)
---  import Data.Aeson qualified as Aeson
+--  import qualified Data.Aeson as Aeson
 --  import System.FilePath ((\</\>))
 --  import Test.Tasty.Golden.Extra.GoldenVsShow (GoldenVsShow (..))
 --
@@ -48,7 +50,7 @@ instance Discover.Tasty GoldenVsShow where
 --
 -- @
 --  import MySchemasWithShowAndShowInstances.Person (Person)
---  import Data.Aeson qualified as Aeson
+--  import qualified Data.Aeson as Aeson
 --  import System.FilePath ((\</\>))
 --  import Test.Tasty.Golden.Extra.GoldenVsShow (goldenVsShow)
 --

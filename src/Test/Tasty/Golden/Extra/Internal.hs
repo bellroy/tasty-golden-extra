@@ -14,10 +14,10 @@ module Test.Tasty.Golden.Extra.Internal
   )
 where
 
-import Data.Aeson qualified as Aeson
+import qualified Data.Aeson as Aeson
 import Data.Aeson.Diff (diff)
 import Data.Aeson.Patch (patchOperations)
-import Data.Text.Lazy qualified as TL
+import qualified Data.Text.Lazy as TL
 import Text.Pretty.Simple (pShowNoColor)
 
 -- | Represents the result of comparing two JSON values - either the JSON is

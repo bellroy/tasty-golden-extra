@@ -1,3 +1,5 @@
+{-# LANGUAGE ExistentialQuantification #-}
+
 -- |
 --
 -- Module      : Test.Tasty.Golden.Extra.GoldenVsToJSON
@@ -13,11 +15,11 @@ module Test.Tasty.Golden.Extra.GoldenVsToJSON
   )
 where
 
-import Data.Aeson qualified as Aeson
+import qualified Data.Aeson as Aeson
 import Data.Aeson.Encode.Pretty (encodePretty)
-import Data.ByteString.Lazy qualified as BL
+import qualified Data.ByteString.Lazy as BL
 import Test.Tasty (TestName, TestTree)
-import Test.Tasty.Discover qualified as Discover
+import qualified Test.Tasty.Discover as Discover
 import Test.Tasty.Golden.Advanced (goldenTest)
 import Test.Tasty.Golden.Extra.Internal (checkJsonDifference, maybeDifference)
 
@@ -27,7 +29,7 @@ import Test.Tasty.Golden.Extra.Internal (checkJsonDifference, maybeDifference)
 --
 -- @
 --  import MySchemasWithToJSONInstances.Person (Person)
---  import Data.Aeson qualified as Aeson
+--  import qualified Data.Aeson as Aeson
 --  import System.FilePath ((\</\>))
 --  import Test.Tasty.Golden.Extra.GoldenVsToJSON (GoldenVsToJSON (..))
 --
@@ -48,7 +50,7 @@ instance Discover.Tasty GoldenVsToJSON where
 --
 -- @
 --  import MySchemasWithToJSONInstances.Person (Person)
---  import Data.Aeson qualified as Aeson
+--  import qualified Data.Aeson as Aeson
 --  import System.FilePath ((\</\>))
 --  import Test.Tasty.Golden.Extra.GoldenVsToJSON (goldenVsToJSON)
 --
