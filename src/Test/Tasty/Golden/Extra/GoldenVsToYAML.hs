@@ -23,7 +23,6 @@ where
 import Data.Aeson
 import Data.Aeson qualified as Aeson
 import Data.ByteString qualified as BL
-import Data.String.Interpolate (i)
 import Data.Yaml qualified as Yaml
 import Test.Tasty
 import Test.Tasty.Discover qualified as Discover
@@ -94,7 +93,7 @@ orFailTest :: FilePath -> Either Yaml.ParseException a -> IO a
 orFailTest fp =
   either
     ( fail
-        . ([i|Failed to decode file #{fp}|] <>)
+        . (\t -> mconcat ["Failed to decode file ", fp, "\n", t])
         . Yaml.prettyPrintParseException
     )
     pure

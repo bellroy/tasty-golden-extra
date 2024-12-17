@@ -38,7 +38,6 @@ common deps
     , bytestring          >=0.10.12
     , pretty-show         ^>=1.10
     , pretty-simple       ^>=4.1
-    , string-interpolate  ^>=0.3.4.0
     , tasty               ^>=1.5
     , tasty-discover      ^>=5.0.0
     , tasty-golden        ^>=2.3.5
