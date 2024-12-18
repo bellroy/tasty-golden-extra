@@ -41,7 +41,7 @@ common deps
     , tasty           ^>=1.5.2
     , tasty-discover  ^>=5.0.0
     , tasty-golden    ^>=2.3.5
-    , text            ^>=1.2       || ^>=2.1
+    , text            ^>=1.2       || ^>=2.0 || ^>=2.1
     , yaml            ^>=0.11.11.2
 
 common opts
