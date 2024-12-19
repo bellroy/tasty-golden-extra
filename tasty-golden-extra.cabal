@@ -9,7 +9,7 @@ homepage:
 
 bug-reports:        https://github.com/bellroy/tasty-golden-extra/issues
 author:             Bellroy
-maintainer:         geeks@bellroy.com
+maintainer:         haskell@bellroy.com
 build-type:         Simple
 synopsis:           Additional golden test helpers for the tasty-golden package
 description:
