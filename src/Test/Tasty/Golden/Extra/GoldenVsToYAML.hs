@@ -91,7 +91,7 @@ goldenVsToYaml name fp act =
 orFailTest :: FilePath -> Either Yaml.ParseException a -> IO a
 orFailTest fp =
   either
-    ( fail
+    ( error
         . (\t -> mconcat ["Failed to decode file ", fp, "\n", t])
         . Yaml.prettyPrintParseException
     )
